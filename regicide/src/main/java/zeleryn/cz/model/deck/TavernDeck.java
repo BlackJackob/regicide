@@ -18,7 +18,7 @@ public class TavernDeck extends CardDeck {
 
         Card cardToAdd;
         for (CardSuit cardSuit: cardSuits) {
-            for (int i = 0; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++) {
                 cardToAdd = new Card(i, cardSuit);
                 cardDeck.add(cardToAdd);
             }

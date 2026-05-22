@@ -40,5 +40,12 @@ public abstract class CardDeck {
         cardDeck.add(0, card);
     }
 
+    public void addToTop(ArrayList<Card> cardsToAdd) {
+        for(Card card : cardsToAdd) {
+            cardDeck.add(0, card);
+        }
+    }
+
+
 
 }

@@ -17,10 +17,15 @@ public class GameBoard {
     private RoyalDeck royalDeck;
     private CardRoyal currentRoyal;
 
-
+    public GameBoard() {
+        tavernDeck = new TavernDeck();
+        discardDeck = new DiscardDeck();
+        royalDeck = new RoyalDeck();
+        // todo: later replace with method that just draws one card
+        currentRoyal = (CardRoyal) tavernDeck.drawCards(1).getFirst();
+    }
 
     public void PlayCards(ArrayList<Card> cardsPlayed) {
-        // todo: propably make two functions with diferent arguments
         if(cardsPlayed.size() > 1) {
             evaluateCombo(cardsPlayed);
             return;
@@ -75,18 +80,23 @@ public class GameBoard {
         } else if (card.getCardSuit() == CardSuit.SPADES) {
             currentRoyal.lowerDamage(value);
         } else if (card.getCardSuit() == CardSuit.HEARTHS) {
+            discardDeck.shuffle();
             ArrayList<Card> healedCards = discardDeck.drawCards(value);
             tavernDeck.addToBottom(healedCards);
         } else if (card.getCardSuit() == CardSuit.DIAMONDS) {
-            PlayerManager.getInstance().playersDrawCards(value);
+            ArrayList<Card> cardsToDistribute = tavernDeck.drawCards(value);
+            ArrayList<Card> leftovers = PlayerManager.getInstance().distributeCardsAmongPlayers(cardsToDistribute);
+            tavernDeck.addToTop(leftovers);
         }
     }
 
-    // todo: propably add method to draw a single card
     private void enemyDefeated() {
         if(currentRoyal.getHP() == 0) {
             tavernDeck.addToTop(currentRoyal);
+        } else {
+            discardDeck.addToTop(currentRoyal);
         }
+        // todo: propably add method to draw a single card
         currentRoyal = (CardRoyal) royalDeck.drawCards(1).getFirst();
     }
 }
