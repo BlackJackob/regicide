@@ -2,6 +2,7 @@ package zeleryn.cz.model.player;
 
 import zeleryn.cz.model.cards.Card;
 import zeleryn.cz.model.cards.PlayerCard;
+import zeleryn.cz.model.cards.PlayerCardState;
 
 import java.util.ArrayList;
 
@@ -33,11 +34,12 @@ public class PlayerManager {
     }
 
     public void currentPlayerTakeDamage(int damageToTank) {
-        players.get(currentPlayerIndex);
+        Player player = players.get(currentPlayerIndex);
+        player.takeDamage(damageToTank);
     }
 
-    public ArrayList<Card> currentPlayerPlayCards() {
-        players.get(currentPlayerIndex).playCards();
+    public void currentPlayerSelectsCardsToPlay() {
+        players.get(currentPlayerIndex).selectCardsToPlay();
         resetPassing();
 
     }
@@ -91,5 +93,19 @@ public class PlayerManager {
             }
         }
         return canPass;
+    }
+
+    public ArrayList<Card> getCurrentPlayersSelectedCards() {
+        ArrayList<Card> selectedCards = new ArrayList<>();
+        for (PlayerCard playerCard : players.get(currentPlayerIndex).cardsInHand) {
+            if(playerCard.getCardSelected() == PlayerCardState.SELECTED) {
+                selectedCards.add(playerCard);
+            }
+        }
+        return  selectedCards;
+    }
+
+    public void discardCurrentPlayersSelectedCards() {
+        players.get(currentPlayerIndex).discardSelectedCards();
     }
 }

@@ -75,19 +75,28 @@ public class GameBoard {
             return;
         }
 
+        // todo: maybe a better concept but I digres
         if(card.getCardSuit() == CardSuit.CLUBS) {
             currentRoyal.takeDamage(value);
         } else if (card.getCardSuit() == CardSuit.SPADES) {
             currentRoyal.lowerDamage(value);
         } else if (card.getCardSuit() == CardSuit.HEARTHS) {
-            discardDeck.shuffle();
-            ArrayList<Card> healedCards = discardDeck.drawCards(value);
-            tavernDeck.addToBottom(healedCards);
+            healCards(value);
         } else if (card.getCardSuit() == CardSuit.DIAMONDS) {
-            ArrayList<Card> cardsToDistribute = tavernDeck.drawCards(value);
-            ArrayList<Card> leftovers = PlayerManager.getInstance().distributeCardsAmongPlayers(cardsToDistribute);
-            tavernDeck.addToTop(leftovers);
+            drawCards(value);
         }
+    }
+
+    private void healCards(int numberOfCardsToHeal) {
+        discardDeck.shuffle();
+        ArrayList<Card> healedCards = discardDeck.drawCards(numberOfCardsToHeal);
+        tavernDeck.addToBottom(healedCards);
+    }
+
+    private void drawCards(int numberOfCardsToDraw) {
+        ArrayList<Card> cardsToDistribute = tavernDeck.drawCards(numberOfCardsToDraw);
+        ArrayList<Card> leftovers = PlayerManager.getInstance().distributeCardsAmongPlayers(cardsToDistribute);
+        tavernDeck.addToTop(leftovers);
     }
 
     private void enemyDefeated() {
@@ -98,5 +107,13 @@ public class GameBoard {
         }
         // todo: propably add method to draw a single card
         currentRoyal = (CardRoyal) royalDeck.drawCards(1).getFirst();
+    }
+
+    public TavernDeck getTavernDeck() {
+        return tavernDeck;
+    }
+
+    public CardRoyal getCurrentRoyal() {
+        return currentRoyal;
     }
 }

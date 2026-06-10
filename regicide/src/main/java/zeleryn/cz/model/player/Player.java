@@ -18,7 +18,7 @@ public abstract class Player {
         hasPassed = false;
     }
 
-    public void playCards() {
+    public void selectCardsToPlay() {
 
         boolean playerHasPassedOrConfirmed = false;
         while (!playerHasPassedOrConfirmed) {
@@ -135,6 +135,14 @@ public abstract class Player {
     private void handleCombo(PlayerCard playerCard) {
         if(getSelectedCardsValue() <= 10) {
             playerCard.setCardSelected(PlayerCardState.CAN_BE_PLAYED);
+        }
+    }
+
+    protected void discardSelectedCards() {
+        for (PlayerCard playerCard : cardsInHand) {
+            if(playerCard.getCardSelected() == PlayerCardState.SELECTED) {
+                cardsInHand.remove(playerCard);
+            }
         }
     }
 

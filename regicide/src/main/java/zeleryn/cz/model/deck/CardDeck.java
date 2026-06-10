@@ -46,6 +46,8 @@ public abstract class CardDeck {
         }
     }
 
-
+    public int getCardsAmmount() {
+        return cardDeck.size();
+    }
 
 }
