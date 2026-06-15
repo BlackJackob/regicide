@@ -108,4 +108,8 @@ public class PlayerManager {
     public void discardCurrentPlayersSelectedCards() {
         players.get(currentPlayerIndex).discardSelectedCards();
     }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
 }

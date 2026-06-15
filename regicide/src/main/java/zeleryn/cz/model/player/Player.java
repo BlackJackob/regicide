@@ -3,6 +3,10 @@ package zeleryn.cz.model.player;
 import zeleryn.cz.model.cards.Card;
 import zeleryn.cz.model.cards.PlayerCard;
 import zeleryn.cz.model.cards.PlayerCardState;
+import zeleryn.cz.model.player.commands.PlayerCommand;
+import zeleryn.cz.model.player.commands.PlayerCommandConfirm;
+import zeleryn.cz.model.player.commands.PlayerCommandPass;
+import zeleryn.cz.model.player.commands.PlayerCommandSelect;
 
 import java.util.ArrayList;
 
@@ -143,6 +147,17 @@ public abstract class Player {
             if(playerCard.getCardSelected() == PlayerCardState.SELECTED) {
                 cardsInHand.remove(playerCard);
             }
+        }
+    }
+
+    protected void printCardsInHand() {
+        String cardRepresentation = "";
+        for (PlayerCard playerCard : cardsInHand) {
+            cardRepresentation += playerCard.getValue() + playerCard.getCardSuit().getSuitSymbol() + " ; ";
+        }
+        cardRepresentation += "\n";
+        for (PlayerCard playerCard : cardsInHand) {
+            cardRepresentation += "";
         }
     }
 

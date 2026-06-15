@@ -16,4 +16,5 @@ public class PlayerCard extends Card {
     public void setCardSelected(PlayerCardState cardSelected) {
         this.cardSelected = cardSelected;
     }
+
 }

@@ -1,6 +1,8 @@
 package zeleryn.cz.model;
 
 import zeleryn.cz.model.cards.Card;
+import zeleryn.cz.model.player.HumanPlayer;
+import zeleryn.cz.model.player.Player;
 import zeleryn.cz.model.player.PlayerManager;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class GameEngine {
     }
 
     public void playGame() {
+        setupPlayers();
         while (gameHasFinished == false) {
 
             // Check if won
@@ -62,6 +65,13 @@ public class GameEngine {
         playerManager.currentPlayerTakeDamage(gameBoard.getCurrentRoyal().getDamage());
         playerManager.discardCurrentPlayersSelectedCards();
 
+    }
+
+    private void setupPlayers() {
+        HumanPlayer humanPlayer = new HumanPlayer(8);
+        ArrayList<Player> currentPlayers = new ArrayList<>();
+        currentPlayers.add(humanPlayer);
+        playerManager.setPlayers(currentPlayers);
     }
 
 }

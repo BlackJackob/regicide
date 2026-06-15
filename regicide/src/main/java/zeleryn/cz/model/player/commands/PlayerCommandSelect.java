@@ -1,4 +1,4 @@
-package zeleryn.cz.model.player;
+package zeleryn.cz.model.player.commands;
 
 public class PlayerCommandSelect extends PlayerCommand{
     private final int selectIndex;
